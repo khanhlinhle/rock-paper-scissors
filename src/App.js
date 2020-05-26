@@ -11,12 +11,14 @@ let flawless = 0;
 
 function App() {
 
-  const [prompt, setGamePrompt] = useState("1, 2, 3, SHOOT!");
+  const [prompt, setGamePrompt] = useState(null);
   const [playerChoice, setPlayerChoice] = useState(null);
   const [computerChoice, setComputerChoice] = useState(null);
   const [previousWinner, setPreviousWinner] = useState(null);
   const [flawlessWinner, setFlawlessWiner] = useState(null);
   const [gameHistory, setGameHistory] = useState([]);
+
+  let [userName, setUserName] = useState(null)
 
   const onPlayerChoose = playerChoice => {
     if (!isReady) return;
@@ -28,12 +30,12 @@ function App() {
     setComputerChoice(newComputerChoice);
 
     if (result === "Victory!") {
-      setPreviousWinner("Radiant");
+      setPreviousWinner({userName});
       // positive
       if (flawless < 0) flawless = 1;
       else flawless += 1;
 
-      if (flawless > 2) setFlawlessWiner("Radiant");
+      if (flawless > 2) setFlawlessWiner({userName});
 
     } else if (result === "Defeat!") {
       setPreviousWinner("Dire");
@@ -59,46 +61,50 @@ function App() {
     if (!isReady) {
       isReady = true;
     }
+    setUserName(document.getElementById("inputUserName").value);
   };
 
   return (
     <div className="App">
-      <div className="container">
-        <div className="row mb-3">
-          <div className="col-md-8 themed-grid-col">
-
-            <ChoiceCard
-              title="Dire"
-              previousWinner={previousWinner}
-              imgURL={computerChoice && computerChoice.url}/>
-
+      <div className="row mb-3">
+        <div className="col-md-4 themed-grid-col">
+          <ChoiceCard
+            title="Dire"
+            previousWinner={previousWinner}
+            imgURL={computerChoice && computerChoice.url} />
+        </div>
+        <div className="col-md-2 themed-grid-col d-flex flex-column justify-content-center">
+          <div className="container">
             <PromptResult rs={prompt} />
-            <ChoiceButtons onPlayerChoose={onPlayerChoose}/>
-
-            <ChoiceCard
-              title="Radiant"
-              previousWinner={previousWinner}
-              imgURL={playerChoice && playerChoice.url}/>
-          </div>
-          <div className="col-md-4 themed-grid-col">
-            <h2>RPS</h2>
-            <div>
-              <button
-                className="btn btn-success btn-lg"
-                onClick={() => onPlayerRegister()}>Start
-              </button>
-            </div>
-            <h2>Flawless Winner: {flawlessWinner}</h2>
-            <h3>History</h3>
-            <ul>
-              {gameHistory.map(h => {
-                return <li>{h}</li>;
-              })}
-            </ul>
+            <ChoiceButtons onPlayerChoose={onPlayerChoose} />
           </div>
         </div>
+        <div className="col-md-4 themed-grid-col">
+          <ChoiceCard
+            title={userName}
+            previousWinner={previousWinner}
+            imgURL={playerChoice && playerChoice.url} />
+        </div>
+        <div className="col-md-2 themed-grid-col d-flex flex-column justify-content-center">
+          {
+            userName == null ? <input type="text" id="inputUserName" placeholder="Enter player name" className="input-text" /> : <h1>{userName}</h1>
+          }
+          <div>
+            <button
+              className="btn btn-success btn-lg "
+              onClick={() => onPlayerRegister()}>Start
+              </button>
+          </div>
+          <h2 className="rocket-text">Flawless Winner: {flawlessWinner}</h2>
+          <h3 className="rocket-text">History:</h3>
+          <ul>
+            {gameHistory.map(h => {
+              return <li>{userName} {h}</li>;
+            })}
+          </ul>
+        </div>
       </div>
-    </div>
+    </div >
   );
 }
 

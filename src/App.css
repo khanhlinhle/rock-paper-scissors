@@ -3,7 +3,7 @@
     display: flex;
     min-height: 100vh;
     text-align: center;
-    background-color: black;
+    background-color: #e9ebee;
 }
 
 .choice-card {
@@ -21,6 +21,7 @@
     background-color: white;
     justify-content: space-around;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 500px;
 }
 
 img {
@@ -35,15 +36,40 @@ h1 {
 .winner {
     color: green;
     border: 10px solid green;
-    background-image: url("https://i.pinimg.com/originals/11/16/e0/1116e0a1c4c98ae89a595cee9450e196.jpg");
 }
 
 .loser {
     color: red;
     border: 10px solid red;
-    background-image: url("https://i.pinimg.com/originals/11/16/e0/1116e0a1c4c98ae89a595cee9450e196.jpg");
 }
 
-.backgroundImg {
-    width: 20%
+.draw {
+    color: gray;
+    border: 10px solid gray;
+}
+
+.button-choice {
+    margin-left: 30px;
+    margin-top: 30px;
+    border-radius: 10px;
+}
+
+.container {
+    display: block;
+    align-items: center;
+}
+
+.choice-part {
+    justify-content: center;
+    display: flex;
+}
+
+.input-text {
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.rocket-text {
+    font-size: 20px;
+    margin-top: 10px;
 }

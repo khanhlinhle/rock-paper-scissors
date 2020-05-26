@@ -34,6 +34,6 @@ export const getRoundOutcome = userChoice => {
         result = computerChoice === "tango" ? "Victory!" : "Defeat!";
     }
 
-    if (userChoice === computerChoice) result = "Tie game!";
+    if (userChoice === computerChoice) result = "Tie!";
     return [result, computerChoice];
 };
